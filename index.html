@@ -16,135 +16,88 @@
             background: #000;
             color: #fff;
             overflow: hidden;
-        }
-
-        .presentation {
-            width: 100vw;
             height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .slide-container {
-            flex: 1;
-            position: relative;
-            overflow-y: auto;
         }
 
         .slide {
             display: none;
-            width: 100%;
-            min-height: 100%;
-            padding: 4rem;
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 3rem;
+            overflow-y: auto;
         }
 
         .slide.active {
-            display: block;
+            display: flex;
         }
 
-        /* Navigation */
-        .nav-buttons {
+        /* Navigation flottante */
+        .nav-overlay {
             position: fixed;
-            top: 50%;
-            width: 100%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            z-index: 100;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #374151;
+            border-radius: 3rem;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
-        .nav-button {
-            position: absolute;
-            pointer-events: all;
-            background: rgba(31, 41, 55, 0.8);
-            border: 1px solid rgba(75, 85, 99, 0.5);
+        .nav-btn {
+            background: #1f2937;
+            border: 1px solid #4b5563;
             color: white;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 20px;
+            font-weight: bold;
         }
 
-        .nav-button:hover {
-            background: rgba(55, 65, 81, 1);
+        .nav-btn:hover {
+            background: #374151;
+            border-color: #f59e0b;
         }
 
-        .nav-button.prev {
-            left: 2rem;
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
 
-        .nav-button.next {
-            right: 2rem;
-        }
-
-        .bottom-nav {
-            background: linear-gradient(to right, #1f2937, #000, #1f2937);
-            border-top: 1px solid #374151;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .slide-dots {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .dot {
-            width: 2rem;
-            height: 0.25rem;
-            background: #4b5563;
-            border-radius: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .dot.active {
-            width: 3rem;
-            background: #f59e0b;
-        }
-
-        .slide-counter {
+        .slide-info {
             color: #f59e0b;
             font-family: 'Courier New', monospace;
             font-size: 0.875rem;
+            font-weight: bold;
+            min-width: 80px;
+            text-align: center;
         }
 
-        .slide-title-small {
-            color: #6b7280;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        /* Slide styles */
-        .title-slide {
-            display: flex;
+        /* SLIDES TYPES */
+        
+        /* Slide Titre */
+        .slide-title {
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             background: linear-gradient(135deg, rgba(146, 64, 14, 0.2), #000, rgba(159, 18, 57, 0.2));
-            min-height: 100vh;
         }
 
-        .title-slide h1 {
-            font-size: 4.5rem;
-            font-weight: bold;
-            margin-bottom: 2rem;
-            line-height: 1.1;
-        }
-
-        .title-slide .highlight {
-            color: #f59e0b;
-        }
-
-        .title-slide .badge {
+        .slide-title .badge {
             display: inline-block;
             padding: 0.5rem 1.5rem;
             border: 2px solid #f59e0b;
@@ -155,71 +108,90 @@
             margin-bottom: 2rem;
         }
 
-        .title-slide .divider {
+        .slide-title h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: bold;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .slide-title .highlight {
+            color: #f59e0b;
+        }
+
+        .slide-title .divider {
             width: 6rem;
             height: 0.25rem;
             background: #f59e0b;
             margin: 2rem auto;
         }
 
-        .title-slide .subtitle {
-            font-size: 1.5rem;
+        .slide-title .subtitle {
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
             color: #d1d5db;
             font-weight: 300;
         }
 
-        .content-slide {
+        /* Slide Contenu */
+        .slide-content {
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: clamp(2rem, 4vw, 4rem);
             max-width: 1400px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .slide-header {
             border-left: 4px solid #f59e0b;
             padding-left: 2rem;
-            margin-bottom: 3rem;
+            margin-bottom: clamp(2rem, 4vh, 3rem);
         }
 
         .slide-header .label {
             color: #f59e0b;
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             font-weight: bold;
             letter-spacing: 0.15em;
             margin-bottom: 0.5rem;
         }
 
         .slide-header h2 {
-            font-size: 3rem;
+            font-size: clamp(2rem, 4vw, 3.5rem);
             font-weight: bold;
+            line-height: 1.2;
         }
 
         .slide-header .subtitle {
-            font-size: 1.5rem;
+            font-size: clamp(1.25rem, 2vw, 1.75rem);
             color: #f59e0b;
             font-style: italic;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
 
+        /* Grilles responsives */
         .grid-2 {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(1rem, 2vw, 2rem);
+            margin-bottom: 1rem;
         }
 
         .grid-3 {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: clamp(1rem, 2vw, 1.5rem);
         }
 
         .card {
             background: linear-gradient(135deg, #1f2937, #111827);
-            padding: 2rem;
+            padding: clamp(1.25rem, 2vw, 2rem);
             border: 1px solid #374151;
             border-radius: 0.5rem;
         }
 
         .card h3 {
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 2vw, 1.25rem);
             margin-bottom: 1rem;
             color: #f59e0b;
             text-transform: uppercase;
@@ -231,29 +203,30 @@
         }
 
         .card li {
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             color: #d1d5db;
             display: flex;
             align-items: start;
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
         }
 
         .card li::before {
             content: "▸";
             color: #f59e0b;
-            margin-right: 1rem;
+            margin-right: 0.75rem;
             flex-shrink: 0;
         }
 
         .highlight-box {
             background: rgba(217, 119, 6, 0.1);
             border: 2px solid rgba(245, 158, 11, 0.3);
-            padding: 2rem;
+            padding: clamp(1.25rem, 2vw, 2rem);
             border-radius: 0.5rem;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
         }
 
         .highlight-box p {
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 2vw, 1.25rem);
             line-height: 1.8;
             color: #e5e7eb;
         }
@@ -265,11 +238,11 @@
 
         .stat-box {
             text-align: center;
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         .stat-box .number {
-            font-size: 3rem;
+            font-size: clamp(2rem, 4vw, 3rem);
             font-weight: bold;
             color: #f59e0b;
             margin-bottom: 0.5rem;
@@ -277,127 +250,102 @@
 
         .stat-box .label {
             color: #9ca3af;
-            font-size: 0.875rem;
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
         .episode-card {
             background: linear-gradient(135deg, #1f2937, #111827, #000);
-            padding: 1.5rem;
+            padding: clamp(1rem, 2vw, 1.5rem);
             border-radius: 0.5rem;
         }
 
         .episode-card .ep-number {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 3vw, 2rem);
             font-weight: bold;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
         .episode-card h3 {
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 2vw, 1.25rem);
             font-weight: bold;
             margin-bottom: 0.5rem;
         }
 
         .episode-card p {
             color: #9ca3af;
-            font-size: 0.875rem;
-        }
-
-        .numbered-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
         }
 
         .numbered-item {
             display: flex;
             align-items: start;
             background: #1f2937;
-            padding: 1.5rem;
+            padding: clamp(1rem, 2vw, 1.5rem);
             border: 1px solid #374151;
             border-radius: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .numbered-item .number {
-            font-size: 2.5rem;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
             font-weight: bold;
             color: #f59e0b;
-            margin-right: 1.5rem;
+            margin-right: 1rem;
             flex-shrink: 0;
         }
 
         .numbered-item h3 {
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 2vw, 1.25rem);
             font-weight: bold;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
         }
 
         .numbered-item p {
             color: #9ca3af;
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
         }
 
-        .reference-card {
-            background: #1f2937;
-            padding: 1.5rem;
-            border: 1px solid #374151;
+        .big-text {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            line-height: 1.6;
+            color: #e5e7eb;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .angle-section {
+            background: linear-gradient(to right, #1f2937, #000);
+            padding: clamp(1.25rem, 2vw, 2rem);
+            border-left: 4px solid #f59e0b;
             border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        .reference-card .icon {
-            width: 1.5rem;
-            height: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .reference-card h3 {
-            font-size: 1.25rem;
+        .angle-section h3 {
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
             font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .reference-card .meta {
-            color: #9ca3af;
-            font-size: 0.875rem;
             margin-bottom: 0.75rem;
+            color: #f59e0b;
         }
 
-        .reference-card ul {
-            list-style: none;
-        }
-
-        .reference-card li {
+        .angle-section p {
+            font-size: clamp(0.875rem, 1.8vw, 1.125rem);
             color: #d1d5db;
-            margin-bottom: 0.25rem;
-        }
-
-        .impact-card {
-            background: linear-gradient(135deg, rgba(88, 28, 135, 0.3), #000);
-            padding: 2rem;
-            border-radius: 0.5rem;
-        }
-
-        .impact-card h3 {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin: 1rem 0;
-        }
-
-        .impact-card p {
-            color: #d1d5db;
+            line-height: 1.8;
         }
 
         .big-stat {
             background: linear-gradient(to right, rgba(217, 119, 6, 0.1), rgba(159, 18, 57, 0.1), rgba(147, 51, 234, 0.1));
-            padding: 3rem;
+            padding: clamp(1.5rem, 3vw, 3rem);
             border: 2px solid #f59e0b;
             border-radius: 0.5rem;
             text-align: center;
         }
 
         .big-stat .title {
-            font-size: 0.875rem;
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
             color: #f59e0b;
             font-weight: bold;
             letter-spacing: 0.15em;
@@ -405,27 +353,27 @@
         }
 
         .big-stat .number {
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: bold;
             color: white;
             margin-bottom: 1rem;
         }
 
         .big-stat .subtitle {
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 2vw, 1.25rem);
             color: #9ca3af;
         }
 
         .mini-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
 
         .mini-stat {
             text-align: center;
-            padding-top: 2rem;
+            padding-top: 1rem;
         }
 
         .mini-stat:nth-child(2) {
@@ -434,20 +382,20 @@
         }
 
         .mini-stat .number {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 3vw, 2rem);
             font-weight: bold;
             color: #f59e0b;
             margin-bottom: 0.5rem;
         }
 
         .mini-stat .label {
-            font-size: 0.875rem;
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
             color: #9ca3af;
         }
 
         .channel-card {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.1));
-            padding: 2rem;
+            padding: clamp(1.25rem, 2vw, 2rem);
             border: 2px solid #3b82f6;
             text-align: center;
             border-radius: 0.5rem;
@@ -464,662 +412,723 @@
         }
 
         .channel-card h3 {
-            font-size: 2.5rem;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
             font-weight: bold;
             margin-bottom: 0.5rem;
         }
 
         .channel-card p {
-            font-size: 0.875rem;
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+        }
+
+        .context-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
         }
 
         .context-box {
             background: #1f2937;
-            padding: 1.25rem;
+            padding: clamp(0.75rem, 1.5vw, 1.25rem);
             border-radius: 0.5rem;
-            margin-bottom: 1rem;
         }
 
         .context-box p {
             color: #d1d5db;
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
         }
 
         .context-box strong {
             color: white;
         }
 
+        .reference-card {
+            background: #1f2937;
+            padding: clamp(1rem, 2vw, 1.5rem);
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+        }
+
+        .reference-card h3 {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .reference-card .meta {
+            color: #9ca3af;
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+            margin-bottom: 0.75rem;
+        }
+
+        .reference-card ul {
+            list-style: none;
+        }
+
+        .reference-card li {
+            color: #d1d5db;
+            margin-bottom: 0.25rem;
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+        }
+
+        .impact-card {
+            background: linear-gradient(135deg, rgba(88, 28, 135, 0.3), #000);
+            padding: clamp(1.25rem, 2vw, 2rem);
+            border-radius: 0.5rem;
+        }
+
+        .impact-card h3 {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: bold;
+            margin: 0.75rem 0;
+        }
+
+        .impact-card p {
+            color: #d1d5db;
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
+        }
+
+        .contact-box {
+            background: linear-gradient(to right, #1f2937, #111827);
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            border: 2px solid #f59e0b;
+            display: inline-block;
+            text-align: left;
+            border-radius: 0.5rem;
+        }
+
+        .contact-box h3 {
+            color: #f59e0b;
+            font-weight: bold;
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            margin-bottom: 1rem;
+            letter-spacing: 0.15em;
+        }
+
+        .contact-box p {
+            font-size: clamp(0.875rem, 1.8vw, 1.125rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-box .divider {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #374151;
+        }
+
+        .contact-box .small {
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+            color: #6b7280;
+        }
+
         @media (max-width: 768px) {
             .slide {
-                padding: 2rem 1rem;
+                padding: 1.5rem 1rem;
             }
             
-            .grid-2, .grid-3 {
-                grid-template-columns: 1fr;
+            .nav-overlay {
+                bottom: 1rem;
+                padding: 0.5rem 1rem;
+                gap: 1rem;
             }
             
-            .title-slide h1 {
-                font-size: 2.5rem;
+            .nav-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
+        }
+
+        @media print {
+            .nav-overlay {
+                display: none;
             }
             
-            .slide-header h2 {
-                font-size: 2rem;
-            }
-            
-            .nav-button {
-                width: 40px;
-                height: 40px;
-            }
-            
-            .nav-button.prev {
-                left: 1rem;
-            }
-            
-            .nav-button.next {
-                right: 1rem;
+            .slide {
+                page-break-after: always;
+                display: block !important;
+                position: relative;
             }
         }
     </style>
 </head>
 <body>
-    <div class="presentation">
-        <div class="slide-container">
-            <!-- Slide 1: Titre -->
-            <div class="slide active title-slide">
-                <div class="badge">SÉRIE DOCUMENTAIRE</div>
-                <h1>
-                    LE BONHEUR EST<br>
-                    <span class="highlight">DANS L'EHPAD</span>
-                </h1>
-                <div class="divider"></div>
-                <p class="subtitle">Saison 1 • 6 x 52'</p>
-            </div>
+    <!-- Slide 1: Titre -->
+    <div class="slide active slide-title">
+        <div style="max-width: 1200px;">
+            <div class="badge">SÉRIE DOCUMENTAIRE</div>
+            <h1>
+                LE BONHEUR EST<br>
+                <span class="highlight">DANS L'EHPAD</span>
+            </h1>
+            <div class="divider"></div>
+            <p class="subtitle">Saison 1 • 6 x 52'</p>
+        </div>
+    </div>
 
-            <!-- Slide 2: Logline -->
-            <div class="slide content-slide">
-                <div class="slide-header">
-                    <div class="label">LOGLINE</div>
-                </div>
-                <p style="font-size: 2.5rem; line-height: 1.6; color: #e5e7eb; font-weight: 300; margin-bottom: 4rem;">
-                    Marie-Pierre Goupil, visiteuse bénévole depuis 4 ans, nous ouvre les portes des EHPAD des Hauts-de-Seine pour une immersion inédite dans le quotidien, les émotions et les relations authentiques de ceux qu'on appelle nos "aînés".
-                </p>
-                <div class="grid-3">
-                    <div class="stat-box">
-                        <div class="number">6</div>
-                        <div class="label">Épisodes</div>
-                    </div>
-                    <div class="stat-box" style="border-left: 1px solid #374151; border-right: 1px solid #374151;">
-                        <div class="number">52'</div>
-                        <div class="label">Format</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="number">1</div>
-                        <div class="label">Saison</div>
-                    </div>
-                </div>
+    <!-- Slide 2: Logline -->
+    <div class="slide slide-content">
+        <div class="slide-header">
+            <div class="label">LOGLINE</div>
+        </div>
+        <p class="big-text">
+            Marie-Pierre Goupil, visiteuse bénévole depuis 4 ans, nous ouvre les portes des EHPAD des Hauts-de-Seine pour une immersion inédite dans le quotidien, les émotions et les relations authentiques de ceux qu'on appelle nos "aînés".
+        </p>
+        <div class="grid-3">
+            <div class="stat-box">
+                <div class="number">6</div>
+                <div class="label">Épisodes</div>
             </div>
-
-            <!-- Slide 3: Présentatrice -->
-            <div class="slide content-slide">
-                <div class="slide-header">
-                    <div class="label">PRÉSENTATRICE</div>
-                    <h2>MARIE-PIERRE GOUPIL</h2>
-                    <div class="subtitle">"La Karine Lemarchand des EHPAD"</div>
-                </div>
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>Légitimité</h3>
-                        <ul>
-                            <li>4 ans de visites bénévoles en EHPAD</li>
-                            <li>Réseau établi dans les Hauts-de-Seine</li>
-                            <li>Relation de confiance avec résidents et personnel</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h3>Atouts TV</h3>
-                        <ul>
-                            <li>Capacité d'écoute et d'empathie naturelle</li>
-                            <li>Crée instantanément le lien émotionnel</li>
-                            <li>Valorise chaque personnalité sans misérabilisme</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="highlight-box">
-                    <p><strong>Son talent unique :</strong> transformer chaque visite en moment de télévision authentique, où l'humour côtoie l'émotion, où la dignité prime sur la pitié.</p>
-                </div>
+            <div class="stat-box" style="border-left: 1px solid #374151; border-right: 1px solid #374151;">
+                <div class="number">52'</div>
+                <div class="label">Format</div>
             </div>
-
-            <!-- Slide 4: Le concept -->
-            <div class="slide content-slide">
-                <div class="slide-header">
-                    <div class="label">CONCEPT</div>
-                    <h2>L'ANGLE NARRATIF</h2>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 2rem;">
-                    <div style="background: linear-gradient(to right, #1f2937, #000); padding: 2rem; border-left: 4px solid #f59e0b; border-radius: 0.5rem;">
-                        <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; color: #f59e0b;">Témoignages émouvants</h3>
-                        <p style="font-size: 1.25rem; color: #d1d5db; line-height: 1.8;">
-                            Des parcours de vie extraordinaires, des histoires d'amour, de guerre, de résilience. Chaque résident devient le héros de son propre récit, avec Marie-Pierre comme confidente privilégiée.
-                        </p>
-                    </div>
-                    <div style="background: linear-gradient(to right, #1f2937, #000); padding: 2rem; border-left: 4px solid #f59e0b; border-radius: 0.5rem;">
-                        <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; color: #f59e0b;">Le quotidien capturé</h3>
-                        <p style="font-size: 1.25rem; color: #d1d5db; line-height: 1.8;">
-                            Repas partagés, activités, fêtes d'anniversaire, visites médicales... Le vrai rythme de vie d'un EHPAD, sans filtre mais avec respect. La caméra devient invisible.
-                        </p>
-                    </div>
-                    <div style="background: linear-gradient(to right, #1f2937, #000); padding: 2rem; border-left: 4px solid #f59e0b; border-radius: 0.5rem;">
-                        <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; color: #f59e0b;">Relations entre résidents</h3>
-                        <p style="font-size: 1.25rem; color: #d1d5db; line-height: 1.8;">
-                            Amitiés complices, coups de foudre tardifs, rivalités bénignes, solidarité face à la maladie... Un microcosme social où les émotions n'ont pas d'âge.
-                        </p>
-                    </div>
-                </div>
-                <p style="text-align: center; font-size: 1.5rem; color: #9ca3af; font-style: italic; margin-top: 2rem;">
-                    Ni misérabiliste, ni édulcoré. Juste humain.
-                </p>
+            <div class="stat-box">
+                <div class="number">1</div>
+                <div class="label">Saison</div>
             </div>
+        </div>
+    </div>
 
-            <!-- Slide 5: Structure épisode -->
-            <div class="slide content-slide">
-                <div class="slide-header">
-                    <div class="label">STRUCTURE</div>
-                    <h2>ANATOMIE D'UN ÉPISODE</h2>
-                </div>
-                <div class="numbered-list">
-                    <div class="numbered-item">
-                        <div class="number">01</div>
-                        <div>
-                            <h3>Arrivée de Marie-Pierre</h3>
-                            <p>Introduction du lieu, de l'ambiance du jour, premiers contacts</p>
-                        </div>
-                    </div>
-                    <div class="numbered-item">
-                        <div class="number">02</div>
-                        <div>
-                            <h3>Portraits croisés (3-4 résidents)</h3>
-                            <p>Histoire de vie, témoignages en tête-à-tête avec Marie-Pierre</p>
-                        </div>
-                    </div>
-                    <div class="numbered-item">
-                        <div class="number">03</div>
-                        <div>
-                            <h3>Moments de quotidien</h3>
-                            <p>Repas, activités collectives, soins, visites familiales</p>
-                        </div>
-                    </div>
-                    <div class="numbered-item">
-                        <div class="number">04</div>
-                        <div>
-                            <h3>Relations et interactions</h3>
-                            <p>Scènes entre résidents, avec le personnel, moments de complicité</p>
-                        </div>
-                    </div>
-                    <div class="numbered-item">
-                        <div class="number">05</div>
-                        <div>
-                            <h3>Point de vue du personnel</h3>
-                            <p>Témoignages des soignants, leur regard sur les résidents</p>
-                        </div>
-                    </div>
-                    <div class="numbered-item">
-                        <div class="number">06</div>
-                        <div>
-                            <h3>Temps fort émotionnel</h3>
-                            <p>Moment de grâce, rire, émotion qui clôture l'épisode</p>
-                        </div>
-                    </div>
+    <!-- Slide 3: Présentatrice -->
+    <div class="slide slide-content">
+        <div class="slide-header">
+            <div class="label">PRÉSENTATRICE</div>
+            <h2>MARIE-PIERRE GOUPIL</h2>
+            <div class="subtitle">"La Karine Lemarchand des EHPAD"</div>
+        </div>
+        <div class="grid-2">
+            <div class="card">
+                <h3>Légitimité</h3>
+                <ul>
+                    <li>4 ans de visites bénévoles en EHPAD</li>
+                    <li>Réseau établi dans les Hauts-de-Seine</li>
+                    <li>Relation de confiance avec résidents et personnel</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Atouts TV</h3>
+                <ul>
+                    <li>Capacité d'écoute et d'empathie naturelle</li>
+                    <li>Crée instantanément le lien émotionnel</li>
+                    <li>Valorise chaque personnalité sans misérabilisme</li>
+                </ul>
+            </div>
+        </div>
+        <div class="highlight-box">
+            <p><strong>Son talent unique :</strong> transformer chaque visite en moment de télévision authentique, où l'humour côtoie l'émotion, où la dignité prime sur la pitié.</p>
+        </div>
+    </div>
+
+    <!-- Slide 4: Le concept -->
+    <div class="slide slide-content">
+        <div class="slide-header">
+            <div class="label">CONCEPT</div>
+            <h2>L'ANGLE NARRATIF</h2>
+        </div>
+        <div class="angle-section">
+            <h3>Témoignages émouvants</h3>
+            <p>
+                Des parcours de vie extraordinaires, des histoires d'amour, de guerre, de résilience. Chaque résident devient le héros de son propre récit, avec Marie-Pierre comme confidente privilégiée.
+            </p>
+        </div>
+        <div class="angle-section">
+            <h3>Le quotidien capturé</h3>
+            <p>
+                Repas partagés, activités, fêtes d'anniversaire, visites médicales... Le vrai rythme de vie d'un EHPAD, sans filtre mais avec respect. La caméra devient invisible.
+            </p>
+        </div>
+        <div class="angle-section">
+            <h3>Relations entre résidents</h3>
+            <p>
+                Amitiés complices, coups de foudre tardifs, rivalités bénignes, solidarité face à la maladie... Un microcosme social où les émotions n'ont pas d'âge.
+            </p>
+        </div>
+        <p style="text-align: center; font-size: clamp(1.25rem, 2.5vw, 1.75rem); color: #9ca3af; font-style: italic; margin-top: 2rem;">
+            Ni misérabiliste, ni édulcoré. Juste humain.
+        </p>
+    </div>
+
+    <!-- Slide 5: Structure épisode -->
+    <div class="slide slide-content">
+        <div class="slide-header">
+            <div class="label">STRUCTURE</div>
+            <h2>ANATOMIE D'UN ÉPISODE</h2>
+        </div>
+        <div>
+            <div class="numbered-item">
+                <div class="number">01</div>
+                <div>
+                    <h3>Arrivée de Marie-Pierre</h3>
+                    <p>Introduction du lieu, de l'ambiance du jour, premiers contacts</p>
                 </div>
             </div>
-
-            <!-- Slide 6: Épisodes -->
-            <div class="slide content-slide">
-                <div class="slide-header">
-                    <div class="label">SAISON 1</div>
-                    <h2>6 ÉPISODES</h2>
-                </div>
-                <div class="grid-2">
-                    <div class="episode-card" style="border-left: 4px solid #f59e0b;">
-                        <div class="ep-number" style="color: #f59e0b;">EP1</div>
-                        <h3>Nouveaux départs</h3>
-                        <p>L'arrivée en EHPAD : entre appréhension et espoir de reconstruire</p>
-                    </div>
-                    <div class="episode-card" style="border-left: 4px solid #f43f5e;">
-                        <div class="ep-number" style="color: #f43f5e;">EP2</div>
-                        <h3>L'amour n'a pas d'âge</h3>
-                        <p>Romances tardives, amitiés indéfectibles et coup de foudre à 90 ans</p>
-                    </div>
-                    <div class="episode-card" style="border-left: 4px solid #3b82f6;">
-                        <div class="ep-number" style="color: #3b82f6;">EP3</div>
-                        <h3>Mémoires vivantes</h3>
-                        <p>Les témoins de l'Histoire : guerre, résistance, reconstruction</p>
-                    </div>
-                    <div class="episode-card" style="border-left: 4px solid #10b981;">
-                        <div class="ep-number" style="color: #10b981;">EP4</div>
-                        <h3>Les invisibles</h3>
-                        <p>Dans l'intimité du personnel soignant : héros du quotidien</p>
-                    </div>
-                    <div class="episode-card" style="border-left: 4px solid #a855f7;">
-                        <div class="ep-number" style="color: #a855f7;">EP5</div>
-                        <h3>Générations</h3>
-                        <p>Quand jeunes et anciens se rencontrent : transmission et émerveillement</p>
-                    </div>
-                    <div class="episode-card" style="border-left: 4px solid #f59e0b;">
-                        <div class="ep-number" style="color: #f59e0b;">EP6</div>
-                        <h3>Célébrer la vie</h3>
-                        <p>Fêtes, anniversaires, moments de grâce et éclats de rire</p>
-                    </div>
+            <div class="numbered-item">
+                <div class="number">02</div>
+                <div>
+                    <h3>Portraits croisés (3-4 résidents)</h3>
+                    <p>Histoire de vie, témoignages en tête-à-tête avec Marie-Pierre</p>
                 </div>
             </div>
-
-            <!-- Slide 7: Pourquoi maintenant -->
-            <div class="slide content-slide">
-                <div class="slide-header">
-                    <div class="label">CONTEXTE</div>
-                    <h2>POURQUOI MAINTENANT ?</h2>
-                </div>
-                <div class="grid-2">
-                    <div>
-                        <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #f59e0b;">Contexte sociétal</h3>
-                        <div class="context-box" style="border-left: 2px solid #ef4444;">
-                            <p><strong>20%</strong> de la population française a plus de 65 ans</p>
-                        </div>
-                        <div class="context-box" style="border-left: 2px solid #f97316;">
-                            <p>Débat public sur la <strong>dépendance et la fin de vie</strong></p>
-                        </div>
-                        <div class="context-box" style="border-left: 2px solid #fbbf24;">
-                            <p>Post-COVID : <strong>reconnaissance du personnel soignant</strong></p>
-                        </div>
-                        <div class="context-box" style="border-left: 2px solid #f59e0b;">
-                            <p>Les EHPAD au cœur de <strong>l'actualité médiatique</strong></p>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #f59e0b;">Opportunité TV</h3>
-                        <div class="context-box" style="border-left: 2px solid #10b981;">
-                            <p>Soif d'<strong>authenticité</strong> du public</p>
-                        </div>
-                        <div class="context-box" style="border-left: 2px solid #14b8a6;">
-                            <p>Succès du <strong>documentaire social</strong> émotionnel</p>
-                        </div>
-                        <div class="context-box" style="border-left: 2px solid #3b82f6;">
-                            <p>Besoin de <strong>récits positifs</strong> et inspirants</p>
-                        </div>
-                        <div class="context-box" style="border-left: 2px solid #a855f7;">
-                            <p>Public <strong>multigénérationnel</strong> concerné</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="highlight-box" style="margin-top: 2rem; text-align: center;">
-                    <p style="font-size: 1.5rem;"><strong>Premier programme</strong> à montrer les EHPAD comme des <strong>lieux de VIE</strong> et non de fin de vie</p>
+            <div class="numbered-item">
+                <div class="number">03</div>
+                <div>
+                    <h3>Moments de quotidien</h3>
+                    <p>Repas, activités collectives, soins, visites familiales</p>
                 </div>
             </div>
+            <div class="numbered-item">
+                <div class="number">04</div>
+                <div>
+                    <h3>Relations et interactions</h3>
+                    <p>Scènes entre résidents, avec le personnel, moments de complicité</p>
+                </div>
+            </div>
+            <div class="numbered-item">
+                <div class="number">05</div>
+                <div>
+                    <h3>Point de vue du personnel</h3>
+                    <p>Témoignages des soignants, leur regard sur les résidents</p>
+                </div>
+            </div>
+            <div class="numbered-item">
+                <div class="number">06</div>
+                <div>
+                    <h3>Temps fort émotionnel</h3>
+                    <p>Moment de grâce, rire, émotion qui clôture l'épisode</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <!-- Slide 8: Audience -->
-            <div class="slide content-slide">
-                <div class="slide-header">
-                    <div class="label">MARCHÉ</div>
-                    <h2>AUDIENCE CIBLE</h2>
-                </div>
-                <div class="grid-2" style="margin-bottom: 3rem;">
-                    <div class="card" style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.2), #000); border-color: rgba(245, 158, 11, 0.3);">
-                        <h3>Cœur de cible</h3>
-                        <ul>
-                            <li><strong style="color: white;">Femmes 35-65 ans</strong> (décideuses, concernées)</li>
-                            <li><strong style="color: white;">Familles</strong> avec parents âgés ou dépendants</li>
-                            <li>Public du <strong style="color: white;">documentaire social</strong></li>
-                            <li>Seniors <strong style="color: white;">70+</strong> actifs</li>
-                        </ul>
+    <!-- Slide 6: Épisodes -->
+    <div class="slide slide-content">
+        <div class="slide-header">
+            <div class="label">SAISON 1</div>
+            <h2>6 ÉPISODES</h2>
+        </div>
+        <div class="grid-2">
+            <div class="episode-card" style="border-left: 4px solid #f59e0b;">
+                <div class="ep-number" style="color: #f59e0b;">EP1</div>
+                <h3>Nouveaux départs</h3>
+                <p>L'arrivée en EHPAD : entre appréhension et espoir de reconstruire</p>
+            </div>
+            <div class="episode-card" style="border-left: 4px solid #f43f5e;">
+                <div class="ep-number" style="color: #f43f5e;">EP2</div>
+                <h3>L'amour n'a pas d'âge</h3>
+                <p>Romances tardives, amitiés indéfectibles et coup de foudre à 90 ans</p>
+            </div>
+            <div class="episode-card" style="border-left: 4px solid #3b82f6;">
+                <div class="ep-number" style="color: #3b82f6;">EP3</div>
+                <h3>Mémoires vivantes</h3>
+                <p>Les témoins de l'Histoire : guerre, résistance, reconstruction</p>
+            </div>
+            <div class="episode-card" style="border-left: 4px solid #10b981;">
+                <div class="ep-number" style="color: #10b981;">EP4</div>
+                <h3>Les invisibles</h3>
+                <p>Dans l'intimité du personnel soignant : héros du quotidien</p>
+            </div>
+            <div class="episode-card" style="border-left: 4px solid #a855f7;">
+                <div class="ep-number" style="color: #a855f7;">EP5</div>
+                <h3>Générations</h3>
+                <p>Quand jeunes et anciens se rencontrent : transmission et émerveillement</p>
+            </div>
+            <div class="episode-card" style="border-left: 4px solid #f59e0b;">
+                <div class="ep-number" style="color: #f59e0b;">EP6</div>
+                <h3>Célébrer la vie</h3>
+                <p>Fêtes, anniversaires, moments de grâce et éclats de rire</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Pourquoi maintenant -->
+    <div class="slide slide-content">
+        <div class="slide-header">
+            <div class="label">CONTEXTE</div>
+            <h2>POURQUOI MAINTENANT ?</h2>
+        </div>
+        <div class="grid-2">
+            <div>
+                <h3 style="font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: bold; margin-bottom: 1rem; color: #f59e0b;">Contexte sociétal</h3>
+                <div class="context-list">
+                    <div class="context-box" style="border-left: 2px solid #ef4444;">
+                        <p><strong>20%</strong> de la population française a plus de 65 ans</p>
                     </div>
-                    <div class="card">
-                        <h3 style="color: #9ca3af;">Cible secondaire</h3>
-                        <ul style="color: #9ca3af;">
-                            <li>Professionnels de santé et du social</li>
-                            <li>Étudiants en gériatrie et gérontologie</li>
-                            <li>Associations et bénévoles</li>
-                            <li>Public engagé socialement (25-45 ans)</li>
-                        </ul>
+                    <div class="context-box" style="border-left: 2px solid #f97316;">
+                        <p>Débat public sur la <strong>dépendance et la fin de vie</strong></p>
                     </div>
-                </div>
-                <div class="big-stat">
-                    <div class="title">AUDIENCE ESTIMÉE PRIME TIME</div>
-                    <div class="number">1,5M - 2,5M</div>
-                    <div class="subtitle">téléspectateurs / épisode</div>
-                    <div class="mini-stats">
-                        <div class="mini-stat">
-                            <div class="number">20%+</div>
-                            <div class="label">Part d'audience visée</div>
-                        </div>
-                        <div class="mini-stat">
-                            <div class="number">65%</div>
-                            <div class="label">Femmes responsables</div>
-                        </div>
-                        <div class="mini-stat">
-                            <div class="number">50+</div>
-                            <div class="label">Âge moyen</div>
-                        </div>
+                    <div class="context-box" style="border-left: 2px solid #fbbf24;">
+                        <p>Post-COVID : <strong>reconnaissance du personnel soignant</strong></p>
+                    </div>
+                    <div class="context-box" style="border-left: 2px solid #f59e0b;">
+                        <p>Les EHPAD au cœur de <strong>l'actualité médiatique</strong></p>
                     </div>
                 </div>
             </div>
-
-            <!-- Slide 9: Références -->
-            <div class="slide content-slide">
-                <div class="slide-header">
-                    <div class="label">BENCHMARKING</div>
-                    <h2>RÉFÉRENCES TV</h2>
-                </div>
-                <div class="grid-2" style="margin-bottom: 2rem;">
-                    <div class="reference-card">
-                        <h3>L'Amour est dans le pré</h3>
-                        <div class="meta">M6 • Karine Lemarchand</div>
-                        <ul>
-                            <li>→ Authenticité des personnages</li>
-                            <li>→ Empathie de la présentatrice</li>
-                            <li>→ Suivi narratif fort</li>
-                        </ul>
+            <div>
+                <h3 style="font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: bold; margin-bottom: 1rem; color: #f59e0b;">Opportunité TV</h3>
+                <div class="context-list">
+                    <div class="context-box" style="border-left: 2px solid #10b981;">
+                        <p>Soif d'<strong>authenticité</strong> du public</p>
                     </div>
-                    <div class="reference-card">
-                        <h3>24h aux Urgences</h3>
-                        <div class="meta">TF1 • Documentaire</div>
-                        <ul>
-                            <li>→ Immersion dans un univers méconnu</li>
-                            <li>→ Portraits humains forts</li>
-                            <li>→ Sans voyeurisme</li>
-                        </ul>
+                    <div class="context-box" style="border-left: 2px solid #14b8a6;">
+                        <p>Succès du <strong>documentaire social</strong> émotionnel</p>
                     </div>
-                    <div class="reference-card">
-                        <h3>100 jours avec...</h3>
-                        <div class="meta">France 2 • Envoyé Spécial</div>
-                        <ul>
-                            <li>→ Observation longue durée</li>
-                            <li>→ Relation de confiance</li>
-                            <li>→ Moments intimes captés</li>
-                        </ul>
+                    <div class="context-box" style="border-left: 2px solid #3b82f6;">
+                        <p>Besoin de <strong>récits positifs</strong> et inspirants</p>
                     </div>
-                    <div class="reference-card">
-                        <h3>Les Bracelets rouges</h3>
-                        <div class="meta">TF1 • Fiction</div>
-                        <ul>
-                            <li>→ Lieu de vie collectif</li>
-                            <li>→ Relations entre résidents</li>
-                            <li>→ Émotions universelles</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="highlight-box">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; color: #f59e0b;">NOTRE DIFFÉRENCE</h3>
-                    <p>
-                        Premier documentaire à combiner <strong>l'empathie de Karine Lemarchand</strong>, 
-                        l'immersion de <strong>"24h aux Urgences"</strong> et la sensibilité japonaise, 
-                        appliqué à l'univers des EHPAD avec un angle <strong style="color: #f59e0b;">résolument positif</strong>.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Slide 10: Production -->
-            <div class="slide content-slide">
-                <div class="slide-header">
-                    <div class="label">PRODUCTION</div>
-                    <h2>MOYENS & BUDGET</h2>
-                </div>
-                <div class="grid-2" style="margin-bottom: 2rem;">
-                    <div>
-                        <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #f59e0b;">Équipe technique</h3>
-                        <div class="context-box" style="border-left: 2px solid #f59e0b;">
-                            <p style="font-weight: bold; margin-bottom: 0.25rem;">Équipe légère</p>
-                            <p style="font-size: 0.875rem;">2-3 personnes max pour discrétion</p>
-                        </div>
-                        <div class="context-box" style="border-left: 2px solid #f59e0b;">
-                            <p style="font-weight: bold; margin-bottom: 0.25rem;">Matériel broadcast</p>
-                            <p style="font-size: 0.875rem;">Caméras 4K, son professionnel</p>
-                        </div>
-                        <div class="context-box" style="border-left: 2px solid #f59e0b;">
-                            <p style="font-weight: bold; margin-bottom: 0.25rem;">Tournage longue durée</p>
-                            <p style="font-size: 0.875rem;">6 mois d'immersion progressive</p>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #f59e0b;">Accès terrain</h3>
-                        <div class="context-box" style="border-left: 2px solid #10b981;">
-                            <p style="font-weight: bold; margin-bottom: 0.25rem;">Réseau établi</p>
-                            <p style="font-size: 0.875rem;">15+ EHPAD partenaires (Hauts-de-Seine)</p>
-                        </div>
-                        <div class="context-box" style="border-left: 2px solid #10b981;">
-                            <p style="font-weight: bold; margin-bottom: 0.25rem;">Autorisations</p>
-                            <p style="font-size: 0.875rem;">Protocole éthique : consentement éclairé</p>
-                        </div>
-                        <div class="context-box" style="border-left: 2px solid #10b981;">
-                            <p style="font-weight: bold; margin-bottom: 0.25rem;">Confidences</p>
-                            <p style="font-size: 0.875rem;">Relation de confiance pré-existante</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="highlight-box" style="background: linear-gradient(to right, rgba(217, 119, 6, 0.2), rgba(159, 18, 57, 0.2)); border: 2px solid #f59e0b;">
-                    <div class="mini-stats">
-                        <div class="mini-stat">
-                            <p style="font-size: 0.875rem; color: #f59e0b; margin-bottom: 0.5rem; font-weight: bold;">BUDGET SAISON 1</p>
-                            <div class="number" style="font-size: 3rem;">1,2M€</div>
-                            <div class="label">6 épisodes × 52'</div>
-                        </div>
-                        <div class="mini-stat">
-                            <p style="font-size: 0.875rem; color: #9ca3af; margin-bottom: 0.5rem; font-weight: bold;">COÛT/MINUTE</p>
-                            <div class="number" style="font-size: 3rem; color: #9ca3af;">3,8K€</div>
-                            <div class="label" style="color: #6b7280;">Compétitif pour ce format</div>
-                        </div>
-                        <div class="mini-stat">
-                            <p style="font-size: 0.875rem; color: #9ca3af; margin-bottom: 0.5rem; font-weight: bold;">DÉLAI</p>
-                            <div class="number" style="font-size: 3rem; color: #9ca3af;">9 mois</div>
-                            <div class="label" style="color: #6b7280;">De la préproduction à la diffusion</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 11: Diffusion -->
-            <div class="slide content-slide">
-                <div class="slide-header">
-                    <div class="label">DISTRIBUTION</div>
-                    <h2>STRATÉGIE DE DIFFUSION</h2>
-                </div>
-                <div style="margin-bottom: 2.5rem;">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #f59e0b;">Chaînes cibles prioritaires</h3>
-                    <div class="grid-3">
-                        <div class="channel-card">
-                            <h3>FRANCE 2</h3>
-                            <p style="color: #93c5fd;">Service public • Prime time</p>
-                        </div>
-                        <div class="channel-card m6">
-                            <h3>M6</h3>
-                            <p style="color: #fda4af;">Documentaire social • 21h</p>
-                        </div>
-                        <div class="channel-card france3">
-                            <h3>FRANCE 3</h3>
-                            <p style="color: #d8b4fe;">Proximité régionale</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid-2" style="margin-bottom: 1.5rem;">
-                    <div class="card">
-                        <h3>Diffusion linéaire</h3>
-                        <ul>
-                            <li><strong style="color: white;">Prime time</strong> (21h00)</li>
-                            <li><strong style="color: white;">Rythme hebdomadaire</strong> (6 semaines)</li>
-                            <li><strong style="color: white;">Mardi ou jeudi</strong> soir idéalement</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h3>Replay & Digital</h3>
-                        <ul>
-                            <li>Disponibilité <strong style="color: white;">replay 6 mois</strong></li>
-                            <li><strong style="color: white;">Extraits vidéo</strong> pour réseaux sociaux</li>
-                            <li><strong style="color: white;">Contenus bonus</strong> exclusifs web</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="grid-2">
-                    <div class="highlight-box" style="background: linear-gradient(to right, rgba(217, 119, 6, 0.2), rgba(249, 115, 22, 0.2)); border-color: rgba(245, 158, 11, 0.5);">
-                        <h3 style="font-weight: bold; margin-bottom: 0.5rem; color: #f59e0b;">Festivals & Prix</h3>
-                        <p style="font-size: 0.875rem;">FIGRA, Prix Europa, Festival du Film Social</p>
-                    </div>
-                    <div class="highlight-box" style="background: linear-gradient(to right, rgba(147, 51, 234, 0.2), rgba(236, 72, 153, 0.2)); border-color: rgba(168, 85, 247, 0.5);">
-                        <h3 style="font-weight: bold; margin-bottom: 0.5rem; color: #a855f7;">Export international</h3>
-                        <p style="font-size: 0.875rem;">Potentiel ARTE, diffuseurs européens</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 12: Impact -->
-            <div class="slide content-slide">
-                <div class="slide-header">
-                    <div class="label">PORTÉE</div>
-                    <h2>IMPACT SOCIÉTAL</h2>
-                </div>
-                <div class="grid-2" style="margin-bottom: 2.5rem;">
-                    <div class="impact-card" style="background: linear-gradient(135deg, rgba(88, 28, 135, 0.3), #000); border-left: 4px solid #a855f7;">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        <h3>Déstigmatiser</h3>
-                        <p>Casser les préjugés sur les EHPAD et montrer le grand âge sous un nouveau jour</p>
-                    </div>
-                    <div class="impact-card" style="background: linear-gradient(135deg, rgba(30, 64, 175, 0.3), #000); border-left: 4px solid #3b82f6;">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                        </svg>
-                        <h3>Valoriser</h3>
-                        <p>Mettre en lumière le personnel soignant et leur dévouement quotidien</p>
-                    </div>
-                    <div class="impact-card" style="background: linear-gradient(135deg, rgba(136, 19, 55, 0.3), #000); border-left: 4px solid #f43f5e;">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                        <h3>Sensibiliser</h3>
-                        <p>Ouvrir le dialogue intergénérationnel et familial sur la dépendance</p>
-                    </div>
-                    <div class="impact-card" style="background: linear-gradient(135deg, rgba(146, 64, 14, 0.3), #000); border-left: 4px solid #f59e0b;">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
-                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-                            <polyline points="17 6 23 6 23 12"/>
-                        </svg>
-                        <h3>Inspirer</h3>
-                        <p>Encourager le bénévolat, les visites et l'engagement citoyen</p>
-                    </div>
-                </div>
-                <div class="highlight-box" style="background: linear-gradient(to right, rgba(217, 119, 6, 0.3), rgba(159, 18, 57, 0.2), rgba(147, 51, 234, 0.3)); border: 2px solid #f59e0b;">
-                    <h3 style="font-size: 2rem; font-weight: bold; margin-bottom: 1.5rem; text-align: center; color: #f59e0b;">Un programme d'utilité publique</h3>
-                    <p style="font-size: 1.25rem; text-align: center; line-height: 1.8; margin-bottom: 1.5rem;">
-                        Fédérateur pour associations, pouvoirs publics, sponsors et partenaires institutionnels
-                    </p>
-                    <div style="display: flex; justify-content: center; gap: 2rem; font-size: 0.875rem; color: #9ca3af; flex-wrap: wrap;">
-                        <span>• Ministère de la Santé</span>
-                        <span>• France Silver Eco</span>
-                        <span>• Petits Frères des Pauvres</span>
-                        <span>• Fondations privées</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 13: Closing -->
-            <div class="slide title-slide">
-                <div style="max-width: 1200px;">
-                    <h1 style="font-size: 3.75rem; line-height: 1.2; margin-bottom: 2rem;">
-                        DONNONS UNE VOIX<br>
-                        À CEUX QU'ON<br>
-                        <span class="highlight">N'ÉCOUTE PLUS</span>
-                    </h1>
-                    <div class="divider"></div>
-                    <p style="font-size: 1.5rem; font-weight: 300; color: #d1d5db; margin-bottom: 4rem; line-height: 1.8;">
-                        Une série documentaire authentique, émouvante et nécessaire.<br>
-                        Parce que vieillir n'est pas une fin, c'est une suite.
-                    </p>
-                    <div style="background: linear-gradient(to right, #1f2937, #111827); padding: 2.5rem; border: 2px solid #f59e0b; display: inline-block; text-align: left;">
-                        <h3 style="color: #f59e0b; font-weight: bold; font-size: 1.125rem; margin-bottom: 1.5rem; letter-spacing: 0.15em;">CONTACT PROJET</h3>
-                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                            <p style="font-size: 1.25rem;"><span style="color: #6b7280;">Présentatrice :</span> Marie-Pierre Goupil</p>
-                            <p style="font-size: 1.125rem; color: #9ca3af;">contact@lebonheurestdanslehpad.fr</p>
-                            <p style="font-size: 1.125rem; color: #9ca3af;">+33 (0)6 XX XX XX XX</p>
-                        </div>
-                        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #374151;">
-                            <p style="font-size: 0.875rem; color: #6b7280;">Dossier complet disponible sur demande</p>
-                        </div>
+                    <div class="context-box" style="border-left: 2px solid #a855f7;">
+                        <p>Public <strong>multigénérationnel</strong> concerné</p>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Navigation -->
-        <div class="nav-buttons">
-            <button class="nav-button prev" onclick="previousSlide()">‹</button>
-            <button class="nav-button next" onclick="nextSlide()">›</button>
+        <div class="highlight-box" style="margin-top: 1.5rem; text-align: center;">
+            <p style="font-size: clamp(1.125rem, 2vw, 1.5rem);"><strong>Premier programme</strong> à montrer les EHPAD comme des <strong>lieux de VIE</strong> et non de fin de vie</p>
         </div>
+    </div>
 
-        <!-- Bottom navigation -->
-        <div class="bottom-nav">
-            <div class="slide-dots" id="slideDots"></div>
-            <div style="display: flex; align-items: center; gap: 2rem;">
-                <div class="slide-counter" id="slideCounter">01 / 13</div>
-                <div class="slide-title-small">Le Bonheur est dans l'EHPAD</div>
+    <!-- Slide 8: Audience -->
+    <div class="slide slide-content">
+        <div class="slide-header">
+            <div class="label">MARCHÉ</div>
+            <h2>AUDIENCE CIBLE</h2>
+        </div>
+        <div class="grid-2" style="margin-bottom: 1.5rem;">
+            <div class="card" style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.2), #000); border-color: rgba(245, 158, 11, 0.3);">
+                <h3>Cœur de cible</h3>
+                <ul>
+                    <li><strong style="color: white;">Femmes 35-65 ans</strong> (décideuses, concernées)</li>
+                    <li><strong style="color: white;">Familles</strong> avec parents âgés ou dépendants</li>
+                    <li>Public du <strong style="color: white;">documentaire social</strong></li>
+                    <li>Seniors <strong style="color: white;">70+</strong> actifs</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3 style="color: #9ca3af;">Cible secondaire</h3>
+                <ul style="color: #9ca3af;">
+                    <li>Professionnels de santé et du social</li>
+                    <li>Étudiants en gériatrie et gérontologie</li>
+                    <li>Associations et bénévoles</li>
+                    <li>Public engagé socialement (25-45 ans)</li>
+                </ul>
             </div>
         </div>
+        <div class="big-stat">
+            <div class="title">AUDIENCE ESTIMÉE PRIME TIME</div>
+            <div class="number">1,5M - 2,5M</div>
+            <div class="subtitle">téléspectateurs / épisode</div>
+            <div class="mini-stats">
+                <div class="mini-stat">
+                    <div class="number">20%+</div>
+                    <div class="label">Part d'audience visée</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="number">65%</div>
+                    <div class="label">Femmes responsables</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="number">50+</div>
+                    <div class="label">Âge moyen</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Références -->
+    <div class="slide slide-content">
+        <div class="slide-header">
+            <div class="label">BENCHMARKING</div>
+            <h2>RÉFÉRENCES TV</h2>
+        </div>
+        <div class="grid-2" style="margin-bottom: 1.5rem;">
+            <div class="reference-card">
+                <h3>L'Amour est dans le pré</h3>
+                <div class="meta">M6 • Karine Lemarchand</div>
+                <ul>
+                    <li>→ Authenticité des personnages</li>
+                    <li>→ Empathie de la présentatrice</li>
+                    <li>→ Suivi narratif fort</li>
+                </ul>
+            </div>
+            <div class="reference-card">
+                <h3>24h aux Urgences</h3>
+                <div class="meta">TF1 • Documentaire</div>
+                <ul>
+                    <li>→ Immersion dans un univers méconnu</li>
+                    <li>→ Portraits humains forts</li>
+                    <li>→ Sans voyeurisme</li>
+                </ul>
+            </div>
+            <div class="reference-card">
+                <h3>100 jours avec...</h3>
+                <div class="meta">France 2 • Envoyé Spécial</div>
+                <ul>
+                    <li>→ Observation longue durée</li>
+                    <li>→ Relation de confiance</li>
+                    <li>→ Moments intimes captés</li>
+                </ul>
+            </div>
+            <div class="reference-card">
+                <h3>Les Bracelets rouges</h3>
+                <div class="meta">TF1 • Fiction</div>
+                <ul>
+                    <li>→ Lieu de vie collectif</li>
+                    <li>→ Relations entre résidents</li>
+                    <li>→ Émotions universelles</li>
+                </ul>
+            </div>
+        </div>
+        <div class="highlight-box">
+            <h3 style="font-size: clamp(1.125rem, 2vw, 1.5rem); font-weight: bold; margin-bottom: 0.75rem; color: #f59e0b;">NOTRE DIFFÉRENCE</h3>
+            <p>
+                Premier documentaire à combiner <strong>l'empathie de Karine Lemarchand</strong>, 
+                l'immersion de <strong>"24h aux Urgences"</strong> et la sensibilité japonaise, 
+                appliqué à l'univers des EHPAD avec un angle <strong style="color: #f59e0b;">résolument positif</strong>.
+            </p>
+        </div>
+    </div>
+
+    <!-- Slide 10: Production -->
+    <div class="slide slide-content">
+        <div class="slide-header">
+            <div class="label">PRODUCTION</div>
+            <h2>MOYENS & BUDGET</h2>
+        </div>
+        <div class="grid-2" style="margin-bottom: 1.5rem;">
+            <div>
+                <h3 style="font-size: clamp(1.125rem, 2vw, 1.5rem); font-weight: bold; margin-bottom: 1rem; color: #f59e0b;">Équipe technique</h3>
+                <div class="context-list">
+                    <div class="context-box" style="border-left: 2px solid #f59e0b;">
+                        <p style="font-weight: bold; margin-bottom: 0.25rem;">Équipe légère</p>
+                        <p style="font-size: clamp(0.75rem, 1.5vw, 0.875rem);">2-3 personnes max pour discrétion</p>
+                    </div>
+                    <div class="context-box" style="border-left: 2px solid #f59e0b;">
+                        <p style="font-weight: bold; margin-bottom: 0.25rem;">Matériel broadcast</p>
+                        <p style="font-size: clamp(0.75rem, 1.5vw, 0.875rem);">Caméras 4K, son professionnel</p>
+                    </div>
+                    <div class="context-box" style="border-left: 2px solid #f59e0b;">
+                        <p style="font-weight: bold; margin-bottom: 0.25rem;">Tournage longue durée</p>
+                        <p style="font-size: clamp(0.75rem, 1.5vw, 0.875rem);">6 mois d'immersion progressive</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3 style="font-size: clamp(1.125rem, 2vw, 1.5rem); font-weight: bold; margin-bottom: 1rem; color: #f59e0b;">Accès terrain</h3>
+                <div class="context-list">
+                    <div class="context-box" style="border-left: 2px solid #10b981;">
+                        <p style="font-weight: bold; margin-bottom: 0.25rem;">Réseau établi</p>
+                        <p style="font-size: clamp(0.75rem, 1.5vw, 0.875rem);">15+ EHPAD partenaires (Hauts-de-Seine)</p>
+                    </div>
+                    <div class="context-box" style="border-left: 2px solid #10b981;">
+                        <p style="font-weight: bold; margin-bottom: 0.25rem;">Autorisations</p>
+                        <p style="font-size: clamp(0.75rem, 1.5vw, 0.875rem);">Protocole éthique : consentement éclairé</p>
+                    </div>
+                    <div class="context-box" style="border-left: 2px solid #10b981;">
+                        <p style="font-weight: bold; margin-bottom: 0.25rem;">Confidences</p>
+                        <p style="font-size: clamp(0.75rem, 1.5vw, 0.875rem);">Relation de confiance pré-existante</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="highlight-box" style="background: linear-gradient(to right, rgba(217, 119, 6, 0.2), rgba(159, 18, 57, 0.2)); border: 2px solid #f59e0b;">
+            <div class="mini-stats">
+                <div class="mini-stat">
+                    <p style="font-size: clamp(0.75rem, 1.5vw, 0.875rem); color: #f59e0b; margin-bottom: 0.5rem; font-weight: bold;">BUDGET SAISON 1</p>
+                    <div class="number" style="font-size: clamp(2rem, 4vw, 3rem);">1,2M€</div>
+                    <div class="label">6 épisodes × 52'</div>
+                </div>
+                <div class="mini-stat">
+                    <p style="font-size: clamp(0.75rem, 1.5vw, 0.875rem); color: #9ca3af; margin-bottom: 0.5rem; font-weight: bold;">COÛT/MINUTE</p>
+                    <div class="number" style="font-size: clamp(2rem, 4vw, 3rem); color: #9ca3af;">3,8K€</div>
+                    <div class="label" style="color: #6b7280;">Compétitif pour ce format</div>
+                </div>
+                <div class="mini-stat">
+                    <p style="font-size: clamp(0.75rem, 1.5vw, 0.875rem); color: #9ca3af; margin-bottom: 0.5rem; font-weight: bold;">DÉLAI</p>
+                    <div class="number" style="font-size: clamp(2rem, 4vw, 3rem); color: #9ca3af;">9 mois</div>
+                    <div class="label" style="color: #6b7280;">De la préproduction à la diffusion</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: Diffusion -->
+    <div class="slide slide-content">
+        <div class="slide-header">
+            <div class="label">DISTRIBUTION</div>
+            <h2>STRATÉGIE DE DIFFUSION</h2>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+            <h3 style="font-size: clamp(1.125rem, 2vw, 1.5rem); font-weight: bold; margin-bottom: 1rem; color: #f59e0b;">Chaînes cibles prioritaires</h3>
+            <div class="grid-3">
+                <div class="channel-card">
+                    <h3>FRANCE 2</h3>
+                    <p style="color: #93c5fd;">Service public • Prime time</p>
+                </div>
+                <div class="channel-card m6">
+                    <h3>M6</h3>
+                    <p style="color: #fda4af;">Documentaire social • 21h</p>
+                </div>
+                <div class="channel-card france3">
+                    <h3>FRANCE 3</h3>
+                    <p style="color: #d8b4fe;">Proximité régionale</p>
+                </div>
+            </div>
+        </div>
+        <div class="grid-2" style="margin-bottom: 1rem;">
+            <div class="card">
+                <h3>Diffusion linéaire</h3>
+                <ul>
+                    <li><strong style="color: white;">Prime time</strong> (21h00)</li>
+                    <li><strong style="color: white;">Rythme hebdomadaire</strong> (6 semaines)</li>
+                    <li><strong style="color: white;">Mardi ou jeudi</strong> soir idéalement</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Replay & Digital</h3>
+                <ul>
+                    <li>Disponibilité <strong style="color: white;">replay 6 mois</strong></li>
+                    <li><strong style="color: white;">Extraits vidéo</strong> pour réseaux sociaux</li>
+                    <li><strong style="color: white;">Contenus bonus</strong> exclusifs web</li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid-2">
+            <div class="highlight-box" style="background: linear-gradient(to right, rgba(217, 119, 6, 0.2), rgba(249, 115, 22, 0.2)); border-color: rgba(245, 158, 11, 0.5);">
+                <h3 style="font-weight: bold; margin-bottom: 0.5rem; color: #f59e0b; font-size: clamp(1rem, 2vw, 1.125rem);">Festivals & Prix</h3>
+                <p style="font-size: clamp(0.875rem, 1.5vw, 1rem);">FIGRA, Prix Europa, Festival du Film Social</p>
+            </div>
+            <div class="highlight-box" style="background: linear-gradient(to right, rgba(147, 51, 234, 0.2), rgba(236, 72, 153, 0.2)); border-color: rgba(168, 85, 247, 0.5);">
+                <h3 style="font-weight: bold; margin-bottom: 0.5rem; color: #a855f7; font-size: clamp(1rem, 2vw, 1.125rem);">Export international</h3>
+                <p style="font-size: clamp(0.875rem, 1.5vw, 1rem);">Potentiel ARTE, diffuseurs européens</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 12: Impact -->
+    <div class="slide slide-content">
+        <div class="slide-header">
+            <div class="label">PORTÉE</div>
+            <h2>IMPACT SOCIÉTAL</h2>
+        </div>
+        <div class="grid-2" style="margin-bottom: 1.5rem;">
+            <div class="impact-card" style="background: linear-gradient(135deg, rgba(88, 28, 135, 0.3), #000); border-left: 4px solid #a855f7;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                </svg>
+                <h3>Déstigmatiser</h3>
+                <p>Casser les préjugés sur les EHPAD et montrer le grand âge sous un nouveau jour</p>
+            </div>
+            <div class="impact-card" style="background: linear-gradient(135deg, rgba(30, 64, 175, 0.3), #000); border-left: 4px solid #3b82f6;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+                <h3>Valoriser</h3>
+                <p>Mettre en lumière le personnel soignant et leur dévouement quotidien</p>
+            </div>
+            <div class="impact-card" style="background: linear-gradient(135deg, rgba(136, 19, 55, 0.3), #000); border-left: 4px solid #f43f5e;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <h3>Sensibiliser</h3>
+                <p>Ouvrir le dialogue intergénérationnel et familial sur la dépendance</p>
+            </div>
+            <div class="impact-card" style="background: linear-gradient(135deg, rgba(146, 64, 14, 0.3), #000); border-left: 4px solid #f59e0b;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                    <polyline points="17 6 23 6 23 12"/>
+                </svg>
+                <h3>Inspirer</h3>
+                <p>Encourager le bénévolat, les visites et l'engagement citoyen</p>
+            </div>
+        </div>
+        <div class="highlight-box" style="background: linear-gradient(to right, rgba(217, 119, 6, 0.3), rgba(159, 18, 57, 0.2), rgba(147, 51, 234, 0.3)); border: 2px solid #f59e0b;">
+            <h3 style="font-size: clamp(1.25rem, 2.5vw, 2rem); font-weight: bold; margin-bottom: 1rem; text-align: center; color: #f59e0b;">Un programme d'utilité publique</h3>
+            <p style="font-size: clamp(1rem, 2vw, 1.25rem); text-align: center; line-height: 1.8; margin-bottom: 1rem;">
+                Fédérateur pour associations, pouvoirs publics, sponsors et partenaires institutionnels
+            </p>
+            <div style="display: flex; justify-content: center; gap: clamp(1rem, 2vw, 2rem); font-size: clamp(0.75rem, 1.5vw, 0.875rem); color: #9ca3af; flex-wrap: wrap;">
+                <span>• Ministère de la Santé</span>
+                <span>• France Silver Eco</span>
+                <span>• Petits Frères des Pauvres</span>
+                <span>• Fondations privées</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 13: Closing -->
+    <div class="slide slide-title">
+        <div style="max-width: 1000px;">
+            <h1 style="font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.2; margin-bottom: 2rem;">
+                DONNONS UNE VOIX<br>
+                À CEUX QU'ON<br>
+                <span class="highlight">N'ÉCOUTE PLUS</span>
+            </h1>
+            <div class="divider"></div>
+            <p style="font-size: clamp(1.125rem, 2.5vw, 1.75rem); font-weight: 300; color: #d1d5db; margin-bottom: 3rem; line-height: 1.8;">
+                Une série documentaire authentique, émouvante et nécessaire.<br>
+                Parce que vieillir n'est pas une fin, c'est une suite.
+            </p>
+            <div class="contact-box">
+                <h3>CONTACT PROJET</h3>
+                <p><span style="color: #6b7280;">Présentatrice :</span> Marie-Pierre Goupil</p>
+                <p style="color: #9ca3af;">contact@lebonheurestdanslehpad.fr</p>
+                <p style="color: #9ca3af;">+33 (0)6 XX XX XX XX</p>
+                <div class="divider">
+                    <p class="small">Dossier complet disponible sur demande</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation flottante -->
+    <div class="nav-overlay">
+        <button class="nav-btn" id="prevBtn" onclick="previousSlide()">‹</button>
+        <div class="slide-info" id="slideInfo">01 / 13</div>
+        <button class="nav-btn" id="nextBtn" onclick="nextSlide()">›</button>
     </div>
 
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
-
-        function initDots() {
-            const dotsContainer = document.getElementById('slideDots');
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'dot';
-                if (i === 0) dot.classList.add('active');
-                dot.onclick = () => goToSlide(i);
-                dotsContainer.appendChild(dot);
-            }
-        }
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideInfo = document.getElementById('slideInfo');
 
         function updateSlide() {
-            slides.forEach((slide, index) => {
-                slide.classList.remove('active');
-                if (index === currentSlide) {
-                    slide.classList.add('active');
-                }
-            });
-
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach((dot, index) => {
-                dot.classList.remove('active');
-                if (index === currentSlide) {
-                    dot.classList.add('active');
-                }
-            });
-
-            const counter = document.getElementById('slideCounter');
-            counter.textContent = `${String(currentSlide + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
-
-            // Scroll to top when changing slides
-            document.querySelector('.slide-container').scrollTop = 0;
+            // Masquer toutes les slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Afficher la slide courante
+            slides[currentSlide].classList.add('active');
+            
+            // Mettre à jour le compteur
+            slideInfo.textContent = `${String(currentSlide + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+            
+            // Désactiver les boutons si nécessaire
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
         }
 
         function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateSlide();
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlide();
+            }
         }
 
         function previousSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateSlide();
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
         }
 
-        function goToSlide(index) {
-            currentSlide = index;
-            updateSlide();
-        }
-
-        // Keyboard navigation
+        // Navigation au clavier
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ') {
                 e.preventDefault();
@@ -1127,11 +1136,40 @@
             } else if (e.key === 'ArrowLeft') {
                 e.preventDefault();
                 previousSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                currentSlide = 0;
+                updateSlide();
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                currentSlide = totalSlides - 1;
+                updateSlide();
             }
         });
 
-        // Initialize
-        initDots();
+        // Touch swipe sur mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                previousSlide();
+            }
+        }
+
+        // Initialiser
         updateSlide();
     </script>
 </body>
